@@ -1,16 +1,22 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
+from Models.db import db
+import os
+from dotenv import load_dotenv
+from Models.model import Users as registerUser
+from Generator.leogen import intergers
+load_dotenv()
 
 app = Flask(__name__)
 
-# Define the route for the login page
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("Sqlite_path")
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db.init_app(app)
 
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        # TODO: Check the username and password against a database of authorized users
-        # If the credentials are valid, log the user in and redirect to the main application page
-        # Otherwise, display an error message and prompt the user to try again
         if request.form['username'] == 'admin' and request.form['password'] == 'password':
             return redirect(url_for('main'))
         else:
@@ -33,6 +39,11 @@ def register():
             error = "All field required"
             return render_template('createAccount.html', error=error)
         else:
+            data = registerUser(firstname=Firstaname, Lastname=Lastname,
+                                role=selectLevel, email=email, userId=intergers.generate())
+            db.session.add(data)
+            db.session.commit()
+            success = "registered successfully"
             return redirect(url_for('main'))
     else:
         return render_template("createAccount.html")
@@ -45,4 +56,7 @@ def main():
 
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
+        db.session.commit()
     app.run(debug=True)

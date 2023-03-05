@@ -5,6 +5,7 @@
     box-sizing: border-box;
 }
 
+
 body
 {
     height: 100vh;
@@ -14,6 +15,16 @@ body
     justify-content: center;
     align-items: center;
     margin: auto;
+    background:linear-gradient(to left,rgba(0, 0, 0, 0.95), rgba(4, 0, 0, 0.866)), url("../Assets/bg1.png");
+}
+.leobtn:active
+{
+    transform: scale(.9);
+}
+.leobtn
+{
+    text-transform: uppercase;
+    font-size: bold;
 }
 form
 {
@@ -21,6 +32,9 @@ form
     border: 1px solid green;
     text-align: center;
     padding: 10px;
+
+    color: white;
+    font-weight: bold;
     
 }
 
@@ -33,14 +47,26 @@ form .inputs
     gap: 1.5rem;
 
 
+
 }
 .inputs input,select,.leobtn
 {
-    padding: 5px;
-    border: 1px solid black;
+    padding: 10px;
+    border: 1px solid white;
+    background: none;
+    color: white;
+    cursor: pointer;
+    
 
 
 }
+
+.inputs input::placeholder
+{
+    color: white;
+}
+
+
 .errorClass
 {
     color: red;
