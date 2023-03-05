@@ -22,6 +22,22 @@ def login():
 # Define the route for the main application page
 
 
+@app.route("/create_account", methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        Firstaname = request.form['firstname']
+        Lastname = request.form['lastname']
+        selectLevel = request.form['selectLevel']
+        email = request.form['email']
+        if Firstaname == '' or Lastname == '' or selectLevel == '' or email == '':
+            error = "All field required"
+            return render_template('createAccount.html', error=error)
+        else:
+            return redirect(url_for('main'))
+    else:
+        return render_template("createAccount.html")
+
+
 @app.route('/main')
 def main():
     # TODO: Display the main application page with the data and functionality required

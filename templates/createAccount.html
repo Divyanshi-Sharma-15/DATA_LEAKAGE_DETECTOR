@@ -5,8 +5,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/register.css')}}">
 </head>
 <body>
+<form action="/create_account" method="POST">
+    CREATE ACCOUNT
+    <div class="errorClass">
+        {% if error %}
+        <p>{{ error }}</p>
+        {% endif %}
+    </div>
+    <div class="inputs">
+        <input type="text" placeholder="Firstname" name="firstname">
+        <input type="text" placeholder="Lastname" name="lastname">
+        <input type="text" placeholder="Email" name="email">
+        <select name="selectLevel" id="SelectROle">
+            <option value="">--SELECT ROLE--</option>
+        </select>
+        <button class="leobtn">Register</button>
+    </div>
+
+
+
+</form>
     
+    <script>
+        let selectEmalemt=document.getElementById("SelectROle");
+        let OptionList=[
+        {
+            "value": "stuff",
+            "label": "stuff",
+
+        }
+        , {
+                "value": "user",
+                "label": "User",
+
+            }
+            
+           
+        ]
+        OptionList.forEach(options=>{
+            const option = document.createElement('option');
+            option.value=options.value
+            option.label=options.label
+            selectEmalemt.append(option)
+
+
+        })
+
+
+
+    </script>
 </body>
 </html>
