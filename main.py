@@ -14,14 +14,30 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route("/")
+def landing_page():
+    return render_template("main.html")
+
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        if request.form['username'] == 'admin' and request.form['password'] == 'password':
-            return redirect(url_for('main'))
+        email = request.form['email']
+        password = request.form['password']
+        if request.form['email'] == '' and request.form['password'] == '':
+            error = "All field required"
+            return render_template('login.html')
         else:
-            error = 'Invalid username or password. Please try again.'
-            return render_template('login.html', error=error)
+            databaseResponse = registerUser.query.filter_by(
+                email=email).first()
+            if bool(databaseResponse) == False:
+                error = 'Wrong username or password.Try again'
+                return render_template('login.html', error=error)
+            if databaseResponse.password != password:
+                error = 'Wrong username or password.Try again'
+                return render_template('login.html', error=error)
+            else:
+                return redirect(url_for('main'))
     else:
         return render_template('login.html')
 
@@ -34,13 +50,14 @@ def register():
         Firstaname = request.form['firstname']
         Lastname = request.form['lastname']
         selectLevel = request.form['selectLevel']
+        password = request.form['password']
         email = request.form['email']
-        if Firstaname == '' or Lastname == '' or selectLevel == '' or email == '':
+        if Firstaname == '' or Lastname == '' or selectLevel == '' or email == '' or password == '':
             error = "All field required"
             return render_template('createAccount.html', error=error)
         else:
             data = registerUser(firstname=Firstaname, Lastname=Lastname,
-                                role=selectLevel, email=email, userId=intergers.generate())
+                                role=selectLevel, email=email, userId=intergers.generate(length=6), password=password)
             db.session.add(data)
             db.session.commit()
             success = "registered successfully"
