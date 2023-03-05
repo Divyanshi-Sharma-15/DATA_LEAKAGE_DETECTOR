@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from Models.db import db
 import os
 from dotenv import load_dotenv
@@ -7,6 +7,7 @@ from Generator.leogen import intergers
 load_dotenv()
 
 app = Flask(__name__)
+app.secret_key = 'secret_key'
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("Sqlite_path")
@@ -37,6 +38,7 @@ def login():
                 error = 'Wrong username or password.Try again'
                 return render_template('login.html', error=error)
             else:
+                flash('You have been logged in successfully!', 'success')
                 return redirect(url_for('main'))
     else:
         return render_template('login.html')
@@ -60,7 +62,9 @@ def register():
                                 role=selectLevel, email=email, userId=intergers.generate(length=6), password=password)
             db.session.add(data)
             db.session.commit()
+            session['username'] = email
             success = "registered successfully"
+
             return redirect(url_for('main'))
     else:
         return render_template("createAccount.html")
