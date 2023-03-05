@@ -1,10 +1,21 @@
+import logging
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from Models.db import db
 import os
 from dotenv import load_dotenv
 from Models.model import Users as registerUser
 from Generator.leogen import intergers
+import logging
 load_dotenv()
+
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler('audit_trail.log')
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+
 
 app = Flask(__name__)
 app.secret_key = 'secret_key'
@@ -33,12 +44,15 @@ def login():
                 email=email).first()
             if bool(databaseResponse) == False:
                 error = 'Wrong username or password.Try again'
+                logger.info('User {} Logg in Attempt Failed'.format(email))
                 return render_template('login.html', error=error)
             if databaseResponse.password != password:
                 error = 'Wrong username or password.Try again'
+                logger.info('User {} Logg in Attempt Failed'.format(email))
                 return render_template('login.html', error=error)
             else:
                 flash('You have been logged in successfully!', 'success')
+                logger.info('User {} logged in successfully'.format(email))
                 return redirect(url_for('main'))
     else:
         return render_template('login.html')
@@ -63,6 +77,8 @@ def register():
             db.session.add(data)
             db.session.commit()
             session['username'] = email
+            logger.info('User {} registered successfully'.format(email))
+
             success = "registered successfully"
 
             return redirect(url_for('main'))
