@@ -6,20 +6,23 @@
 {% block content %}
 
 <head>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/log.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/profile.css')}}">
 </head>
 
 <body>
-    <div class="logs">
-        <div class="section-title">ALL LOGS</div>
-        <ol>
-            {%for log in logs%}
-            <li>{{log}}</li>
-            {%endfor%}
+    <div class="section-title">My profile</div>
+  <div class="basic_profile">
+    
+    <div class="top-section">
+        <img src="{{url_for('static',filename='Images/avatardefault_92824.png')}}" alt="">
+        <ul>
+            <li>name:{{user_name}}</li>
+            <li>email:{{user_email}}</li>
+        </ul>
+        
 
-
-
-        </ol>
     </div>
+
+  </div>
 </body>
 {%endblock%}

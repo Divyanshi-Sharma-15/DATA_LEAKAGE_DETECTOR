@@ -1,0 +1,23 @@
+{% extends "baseUser.html" %}
+
+{% block title %}About{% endblock %}
+
+
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/profile.css')}}">
+</head>
+
+<body>
+    <div class="section-title">Access Documents</div>
+    {%for document in documents %}
+    <div class="document">
+        <li>{{document.fileName}}</li>
+        <a href="{{ url_for('download', filename=document.fileName) }}">Download</a>
+
+    </div>
+    {%endfor%}
+   
+</body>
+{%endblock%}

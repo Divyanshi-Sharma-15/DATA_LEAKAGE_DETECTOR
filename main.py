@@ -1,5 +1,5 @@
 import logging
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, send_file
 from Models.db import db
 import os
 from dotenv import load_dotenv
@@ -7,6 +7,9 @@ from Models.model import Users as registerUser, Uploaded
 from Generator.leogen import intergers
 import logging
 from werkzeug.utils import secure_filename
+
+from leoWaterMaking import WaterMark
+
 load_dotenv()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -51,6 +54,7 @@ def login():
                 return render_template('login.html', error=error)
             else:
                 flash('You have been logged in successfully!', 'success')
+                session['username'] = email
                 logger.info('User {} logged in successfully'.format(email))
                 return redirect(url_for('main'))
     else:
@@ -88,6 +92,7 @@ def register():
 @app.route('/main')
 def main():
     # TODO: Display the main application page with the data and functionality required
+
     return render_template('main.html')
 
 
@@ -146,12 +151,43 @@ def update_data():
     return render_template("manageData.html")
 
 
-@app.route("/users/profile")
+@app.route("/user/profile")
 def user_profile():
-    if request.method == "POST":
-        pass
+    if "username" in session:
+        email = session['username']
+        user = registerUser.query.filter_by(email=email).first()
+        name = user.firstName+" "+user.Lastname
+        logger.info('User {} Access profile successfully'.format(email))
+        return render_template("userProfile.html", user_email=email, user_name=name)
+    else:
+        return redirect(url_for(main))
 
-    return render_template("userProfile.html")
+
+@app.route("/user/access/documents/")
+def access_documents():
+    documents = Uploaded.query.all()
+    documentList = []
+    for document in documents:
+        documentDict = {}
+        documentDict['DocName'] = document.title
+        documentDict['fileName'] = document.filename
+        documentList.append(documentDict)
+
+    return render_template("Access_documnets.html", documents=documentList)
+
+
+@app.route("/download/<filename>")
+def download(filename):
+    if "username" in session:
+        email = session['username']
+        user = registerUser.query.filter_by(email=email).first()
+        name = user.firstName+" "+user.Lastname
+        userId = user.UserId
+        WaterMark.add_watermark(input_file=filename,
+                                output_file=name+"_"+filename, text=userId)
+        logger.info('User {} Accessed {}'.format(email, filename))
+
+    return send_file("./Downloaded/"+name+"_"+filename, as_attachment=True)
 
 
 if __name__ == '__main__':
