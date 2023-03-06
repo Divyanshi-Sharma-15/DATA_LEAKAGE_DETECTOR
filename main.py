@@ -44,11 +44,11 @@ def login():
                 email=email).first()
             if bool(databaseResponse) == False:
                 error = 'Wrong username or password.Try again'
-                logger.info('User {} Logg in Attempt Failed'.format(email))
+                logger.warning('User {} Log in Attempt Failed'.format(email))
                 return render_template('login.html', error=error)
             if databaseResponse.password != password:
                 error = 'Wrong username or password.Try again'
-                logger.info('User {} Logg in Attempt Failed'.format(email))
+                logger.warning('User {} Log in Attempt Failed'.format(email))
                 return render_template('login.html', error=error)
             else:
                 flash('You have been logged in successfully!', 'success')
