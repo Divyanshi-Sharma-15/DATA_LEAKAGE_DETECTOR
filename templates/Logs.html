@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}About{% endblock %}
+
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/log.css')}}">
+</head>
+
+<body>
+    <div class="logs">
+        <div class="section-title">ALL LOGS</div>
+        <ol>
+            {%for log in logs%}
+            <li>{{log}}</li>
+            {%endfor%}
+            
+
+
+        </ol>
+    </div>
+</body>
+{%endblock%}

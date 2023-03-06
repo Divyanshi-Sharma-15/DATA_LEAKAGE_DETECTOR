@@ -94,7 +94,42 @@ def main():
 
 @app.route("/admin/home")
 def admin_home():
-    return render_template("admin_home.html")
+    databaseResponse = registerUser.query.all()
+    NumOfUsers = len(databaseResponse)
+    Unproved = 0
+    userList = []
+    for user in databaseResponse:
+        # collectin all users
+        userDict = {}
+        name = user.firstName+" "+user.Lastname
+        userDict["email"] = user.email
+        userDict["name"] = name
+        userDict["id"] = user.UserId
+        userDict['role'] = user.UserRole
+        userDict["verified"] = user.Verified
+        userList.append(userDict)
+        if user.Verified == "False":
+            Unproved += 1
+        print(user.email)
+
+    return render_template("admin_home.html", numOfUsers=NumOfUsers, UnapprovedUsers=Unproved, Users=userList)
+
+
+@app.route("/admin/statistics")
+def statics():
+    databaseResponse = registerUser.query.all()
+    for user in databaseResponse:
+        print(user.email)
+
+
+@app.route("/admin/logs")
+def all_logs():
+    logs = []
+    with open("audit_trail.log", 'r') as f:
+        lines = f.readlines()
+        for line in lines:
+            logs.append(line)
+    return render_template("Logs.html", logs=logs)
 
 
 if __name__ == '__main__':

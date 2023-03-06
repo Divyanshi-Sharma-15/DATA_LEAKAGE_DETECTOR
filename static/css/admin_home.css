@@ -1,0 +1,49 @@
+
+.leoCards
+{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 2rem;
+    padding: 10px;
+}
+
+.leoCards .card
+{
+    padding: 15px;
+    background-color: yellowgreen;
+    height: 10rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: .5rem;
+
+}
+.card-title
+{
+    font-weight: bold;
+}
+.allUsers
+{
+    width: 100%;
+    padding-right: 10px;
+}
+.allUsers table
+{
+    width: 90%;
+    margin: auto;
+}
+.allUsers table *
+{
+    border: 1px solid white;
+    text-align: center;
+
+}
+
+.section-title
+{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: larger;
+}

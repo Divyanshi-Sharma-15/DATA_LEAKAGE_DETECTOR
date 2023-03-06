@@ -1,0 +1,31 @@
+.logs
+{
+   padding: 10px;
+   padding-left: 2rem;
+   height: 85vh;
+   overflow-y: auto;
+}
+
+.logs ol li
+{
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.797);
+    margin-bottom: .5rem;
+    border-radius: 1rem;
+    list-style: none;
+}
+.section-title
+{
+    margin: auto;
+    font-weight: bold;
+    font-size: larger;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0 10px yellow;
+    background-color: rgba(0, 0, 0, 0.797);
+    color: white;
+    width: 20rem;
+    text-align: center;
+    padding: 10px;
+   
+    
+}

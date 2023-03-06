@@ -45,7 +45,7 @@ nav ul a
 .content
 {
     grid-column: 10/2;
-    background-color: yellow;
+    background:linear-gradient(to right,navy,rgb(60, 9, 9));
     transition: 2s;
   
 }

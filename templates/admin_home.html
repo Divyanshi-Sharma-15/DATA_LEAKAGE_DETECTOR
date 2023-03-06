@@ -2,10 +2,58 @@
 
 {% block title %}About{% endblock %}
 
+
 {% block content %}
+<head>
+<link rel="stylesheet" href="{{url_for('static',filename='css/admin_home.css')}}">
+
+</head>
 <body>
-<h1>Home page</h1>
-<p>We are a company that specializes in data security.</p>
+<div class="leoCards">
+    <div class="card">
+        
+        <span class="card-title">NO.OF USERS</span>
+        {{numOfUsers}}
+
+    </div>
+    <div class="card">
+       <span class="card-title">UNAPPROVED USERS</span>
+       {{UnapprovedUsers}}
+    
+    </div>
+    <div class="card">
+       
+        <span class="card-title">DATA LEAKAGE</span>
+
+    </div>
+</div>
+<div class="allUsers">
+    <div class="section-title">
+        ALL Users
+
+    </div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>UserId</th>
+            <th>Verified</th>
+            <th>UserRole</th>
+        </tr>
+        {%for user in Users%}
+        <tr>
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.id}}</td>
+            <td>{{user.verified}}</td>
+            <td>{{user.role}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+
+
+
+</div>
 
 </body>
 
