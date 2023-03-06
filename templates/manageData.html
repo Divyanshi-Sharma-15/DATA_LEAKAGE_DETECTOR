@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}About{% endblock %}
+
+
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/managedata.css')}}">
+</head>
+
+<body class="dataBody">
+<div class="fileUpload_container">
+<div class="dragDrop" id="dragDrop">
+    drag and drop your document
+    <div>
+        <span id="fileUploaded"></span>
+    </div>
+
+</div>
+<div class="document_name">
+    <input type="text" placeholder="Document name" id="fileTitle">
+    <input type="file" id="myfiles" style="display:none;">
+
+    <button class="btn">Upload Document</button>
+</div>
+
+</div>
+   
+
+   <script>
+
+   
+        var dropArea = document.getElementById("dragDrop");     
+        dropArea.addEventListener("dragover", dragOverHandler);
+        dropArea.addEventListener("dragleave", dragLeaveHandler);
+        dropArea.addEventListener("drop", dropHandler);
+        let Myfiles=document.getElementById("myfiles")
+
+      
+        function dragOverHandler(event) {
+          
+            event.preventDefault();
+
+          
+            dropArea.classList.add("dragOver");
+        }
+
+        function dragLeaveHandler(event) {
+ 
+            dropArea.classList.remove("dragOver");
+        }
+
+        function dropHandler(event) {
+          
+            event.preventDefault();
+            dropArea.classList.remove("dragOver");
+            var files = event.dataTransfer.files;
+            Myfiles.files=files
+        
+
+           
+            handleFiles(files);
+        }
+
+        // Handle the selected file(s)
+        function handleFiles(files) {
+           
+            if (files.length > 0) {
+             
+                var file = files[0];
+                document.getElementById("fileUploaded").innerHTML=file.name
+
+             
+               
+            }
+        }
+         var uploadBtn = document.querySelector(".btn");
+            uploadBtn.addEventListener("click", function () {
+                var fileInput = document.querySelector("input[type='file']");
+                var file = fileInput.files[0];
+                var documentName = document.getElementById("fileTitle").value;
+                var formData = new FormData();
+                formData.append("file", file);
+                formData.append("document_name", documentName);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/admin/upload/data");
+                xhr.send(formData);
+            });
+
+   </script>
+</body>
+{%endblock%}

@@ -3,12 +3,11 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from Models.db import db
 import os
 from dotenv import load_dotenv
-from Models.model import Users as registerUser
+from Models.model import Users as registerUser, Uploaded
 from Generator.leogen import intergers
 import logging
+from werkzeug.utils import secure_filename
 load_dotenv()
-
-
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 handler = logging.FileHandler('audit_trail.log')
@@ -130,6 +129,29 @@ def all_logs():
         for line in lines:
             logs.append(line)
     return render_template("Logs.html", logs=logs)
+
+
+@app.route("/admin/upload/data", methods=['POST', 'GET'])
+def update_data():
+    if request.method == "POST":
+        uploaded_file = request.files["file"]
+        doc_name = request.form["document_name"]
+        filenameImage = secure_filename(uploaded_file.filename)
+        uploaded_file.save(os.path.join(
+            os.environ.get("server_path"), filenameImage))
+        data = Uploaded(title=doc_name, filename=uploaded_file.filename)
+        db.session.add(data)
+        db.session.commit()
+
+    return render_template("manageData.html")
+
+
+@app.route("/users/profile")
+def user_profile():
+    if request.method == "POST":
+        pass
+
+    return render_template("userProfile.html")
 
 
 if __name__ == '__main__':

@@ -18,3 +18,13 @@ class Users(db.Model):
         self.UserRole = role
         self.UserId = userId
         self.password = password
+
+
+class Uploaded(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100))
+    filename = db.Column(db.String(100))
+
+    def __init__(self, title, filename):
+        self.title = title
+        self.filename = filename
