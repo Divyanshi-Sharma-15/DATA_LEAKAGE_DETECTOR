@@ -1,0 +1,103 @@
+* {
+    padding: 0;
+    margin: 0;
+
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.797);
+    padding: 10px;
+
+}
+nav ul 
+{
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: space-around;
+    list-style: none;
+    text-transform: uppercase;
+
+}
+
+nav ul a
+{
+    color: white;
+    text-decoration: none;
+}
+.ManagePage
+{
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+}
+.sideBar
+{
+    background-color: rgba(0, 0, 0, 0.797);
+    height: 100vh;
+    
+    
+}
+.content
+{
+    grid-column: 10/2;
+    background-color: yellow;
+    transition: 2s;
+  
+}
+
+.sideBar ul li{
+    padding: 10px;
+    text-align: center;
+    list-style: none;
+    
+}
+
+.sideBar ul li a
+{
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    border-bottom: 1px solid white;
+}
+
+.title
+{
+    color: white;
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+    margin-bottom: 2.5rem;
+   
+}
+.togglebtn span
+{
+    border:2px solid rgba(0, 0, 0, 0.797);
+    width: 20px;
+    margin-bottom: 5px;
+    margin-left: .5rem;
+    
+}
+.togglebtn
+{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+.togglebtn span:active
+{
+    transform: scale(.9);
+    color: red;
+}
+.toogleSideBar
+{
+    margin-left: -12rem;
+    z-index: 1;
+
+}

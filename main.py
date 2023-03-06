@@ -92,6 +92,11 @@ def main():
     return render_template('main.html')
 
 
+@app.route("/admin/home")
+def admin_home():
+    return render_template("admin_home.html")
+
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
