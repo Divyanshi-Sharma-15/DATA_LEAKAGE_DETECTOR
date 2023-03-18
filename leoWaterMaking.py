@@ -20,7 +20,7 @@ class WaterMark:
             packet = BytesIO()
             can = canvas.Canvas(packet)
 
-            can.setFont("Helvetica", 60)
+            can.setFont("Helvetica", 10)
 
             watermark_text = text
 
@@ -30,8 +30,9 @@ class WaterMark:
             x = (page_width - can.stringWidth(watermark_text)) / 1
             y = (page_height - can.stringWidth(watermark_text)) / 2
 
-            can.rotate(45)
+            can.rotate(20)
             can.setFillAlpha(0.5)
+            can.setFillColorRGB(255, 255, 255)
             can.drawString(x, y, watermark_text)
             can.save()
 
