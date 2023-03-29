@@ -28,7 +28,7 @@ body
 }
 form
 {
-    width: 30rem;
+    width: 20rem;
     border: 1px solid green;
     text-align: center;
     padding: 10px;
@@ -71,4 +71,9 @@ form .inputs
 {
     color: red;
     font-style: italic;
+}
+
+input.login {
+    background-color: green;
+    border: 1px solid green;
 }

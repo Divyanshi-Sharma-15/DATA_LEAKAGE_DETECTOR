@@ -190,6 +190,11 @@ def download(filename):
     return send_file("./Downloaded/"+name+"_"+filename, as_attachment=True)
 
 
+@app.route("/getStarted")
+def helpDirection():
+    return render_template("help.html")
+
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()

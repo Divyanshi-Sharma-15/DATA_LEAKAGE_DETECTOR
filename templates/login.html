@@ -18,11 +18,20 @@
             <input type="text" name="email" placeholder="Enter Email">
             <input type="password" name="password" placeholder="Enter password">
             <input type="submit" value="Login">
+            <input type="button" class="register" id="tobtn" value="CREATE ACCOUNT">
 
 
         </div>
         
     </form>
 </body>
+
+<script>
+
+    document.getElementById("tobtn").addEventListener('click',()=>{
+        location.href="http://127.0.0.1:5000/create_account"
+    })
+</script>
+
 </html>
 
