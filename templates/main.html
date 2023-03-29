@@ -9,23 +9,7 @@
     <title>Document</title>
 </head>
 <body>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul class="flashes">
-            {% for message in messages %}
-            <li class="flash-{{ message[1] }} flash-success">{{ message }}</li>
-            {% endfor %}
-            <script>
-                setTimeout(function () {
-                    var flashes = document.querySelectorAll('.flashes li');
-                    flashes.forEach(function (flash) {
-                        flash.style.display = 'none';
-                    });
-                }, 5000);
-            </script>
-        </ul>
-        {% endif %}
-        {% endwith %}
+      
 
 
 

@@ -56,7 +56,7 @@ def login():
                 flash('You have been logged in successfully!', 'success')
                 session['username'] = email
                 logger.info('User {} logged in successfully'.format(email))
-                return redirect(url_for('main'))
+                return redirect(url_for('user_profile'))
     else:
         return render_template('login.html')
 

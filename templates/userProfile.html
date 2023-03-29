@@ -6,12 +6,29 @@
 {% block content %}
 
 <head>
-    <link rel="stylesheet" href="{{url_for('static',filename='css/profile.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/profile.css')}}"><link rel="stylesheet" href="{{url_for('static',filename='css/all.css')}}">
 </head>
 
 <body>
     <div class="section-title">My profile</div>
   <div class="basic_profile">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+            <li class="flash-{{ message[1] }} flash-success">{{ message }}</li>
+            {% endfor %}
+            <script>
+                setTimeout(function () {
+                    var flashes = document.querySelectorAll('.flashes li');
+                    flashes.forEach(function (flash) {
+                        flash.style.display = 'none';
+                    });
+                }, 5000);
+            </script>
+        </ul>
+        {% endif %}
+        {% endwith %}
     
     <div class="top-section">
         <img src="{{url_for('static',filename='Images/avatardefault_92824.png')}}" alt="">
